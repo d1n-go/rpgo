@@ -1,0 +1,32 @@
+{
+  "type": "REGULAR",
+  "mailRank": 8,
+  "attachments": {
+    "pdf": {
+      "attachmentId": "letter.pdf",
+      "attachmentSignatureId": "letter.pdf.sig"
+    }
+  },
+  "document": {
+    "id": "1234567890",
+    "registrationDate": "2020-01-01T01:01:02",
+    "registrationNumber": "1234567890",
+    "title": "Уведомление 1234567890"
+  },
+  "sender": {
+    "code": "CODE_1071",
+    "name": "{put_here_your_name}",
+    "departmentCode": "CODE_1071",
+    "departmentName": "{put_here_your_name}",
+    "address": "{put_here_your_address}"
+  },
+  "recipient": {
+    "countryCodeOKSM": 643,
+    "address": "пр-кт Ленинский, д. № д. 1, кв. кв. 13, г. Тольятти, Самарская обл, 445051",
+    "person": {
+      "lastName": "Кузнецов",
+      "firstName": "Кирилл",
+      "patronymic": "Викторович"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "mailId": "{put_here_your_mailId}",
+  "mailRank": 0,
+  "type": "REGISTERED",
+  "attributes": {
+    "carRegNum": "А111AA11",
+    "violAddr": "{put_here_viol_address}",
+    "violDate": "2020-01-01T01:01:01",
+    "discountDate": "2020-02-01",
+    "discountSum": "25000"
+  },
+  "attachments": {
+    "pdf": {
+      "attachmentId": "letter.pdf",
+      "attachmentSignatureId": "letter.pdf.sig"
+    }
+  },
+  "document": {
+    "id": "1234567890",
+    "registrationDate": "2020-01-01T01:01:02",
+    "registrationNumber": "1234567890",
+    "title": "Постановление 1234567890 от 01.01.2020 01:01:01"
+  },
+  "charge": {
+    "bankName": "{put_here_bank_name}",
+    "operatingAccount": "{put_here_operating_account}",
+    "bik": "{put_here_bik}",
+    "inn": "{put_here_inn}",
+    "kpp": "{pu_here_kpp}",
+    "kbk": "{put_here_kbk}",
+    "oktmo": "{put_here_oktmo}",
+    "paymentName": "Штраф за нарушение ПДД",
+    "recipientName": "{put_here_recipient_name}",
+    "uin": "1234567890",
+    "amount": 50000,
+    "paymentPeriod": 60
+  },
+  "sender": {
+    "code": "CODE_1071",
+    "name": "{put_here_your_name}",
+    "departmentCode": "CODE_1071",
+    "departmentName": "{put_here_your_name}",
+    "address": "{put_here_your_address}"
+  },
+  "recipient": {
+    "countryCodeOKSM": 643,
+    "address": "Красноармейская ул, д. № 42, Нижний Тагил г, Свердловская обл, 622001",
+    "organization": {
+      "name": "Тестовый Тестовый ЮЛ ПР 3",
+      "inn": "7700000051"
+    }
+  }
+}
