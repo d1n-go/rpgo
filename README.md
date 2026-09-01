@@ -1,7 +1,7 @@
 # rpgo
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/demen1n/rpgo.svg)](https://pkg.go.dev/github.com/demen1n/rpgo)
-[![Go Report Card](https://goreportcard.com/badge/github.com/demen1n/rpgo)](https://goreportcard.com/report/github.com/demen1n/rpgo)
+[![CI](https://github.com/demen1n/rpgo/actions/workflows/ci.yml/badge.svg)](https://github.com/demen1n/rpgo/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Go-клиент для REST API Почты России ИС ЭПС («Электронные заказные письма»):
