@@ -2,6 +2,7 @@ package rpgo
 
 import (
 	"context"
+	"errors"
 	"io"
 	"mime"
 	"mime/multipart"
@@ -149,5 +150,39 @@ func TestBuildLettersMultipartTypedNilAttachmentContentReturnsError(t *testing.T
 	)
 	if err == nil {
 		t.Fatal("expected error for a typed-nil Content reader, got nil")
+	}
+}
+
+type failingReader struct{}
+
+func (failingReader) Read([]byte) (int, error) { return 0, errors.New("disk read failed") }
+
+// valueReader — io.Reader с не-указательным получателем: isNilReader не
+// должен принимать его за nil только потому, что reflect не может вызвать
+// IsNil на структуре.
+type valueReader struct{ s string }
+
+func (r valueReader) Read(p []byte) (int, error) { return copy(p, r.s), io.EOF }
+
+func TestBuildLettersMultipartAttachmentReadError(t *testing.T) {
+	_, _, err := buildLettersMultipart(
+		CommonInfo{Type: MailTypeRegular},
+		[]Attachment{{FieldName: "letter.pdf", Content: failingReader{}}},
+	)
+	if err == nil || !strings.Contains(err.Error(), "disk read failed") {
+		t.Fatalf("err = %v, want wrapped read error", err)
+	}
+}
+
+func TestBuildLettersMultipartValueTypeReader(t *testing.T) {
+	_, body, err := buildLettersMultipart(
+		CommonInfo{Type: MailTypeRegular},
+		[]Attachment{{FieldName: "letter.pdf", Content: valueReader{"%PDF-1.4"}}},
+	)
+	if err != nil {
+		t.Fatalf("buildLettersMultipart: %v", err)
+	}
+	if !strings.Contains(body.String(), "%PDF-1.4") {
+		t.Error("attachment content missing from multipart body")
 	}
 }

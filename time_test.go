@@ -76,3 +76,41 @@ func mustParse(t *testing.T, s string) time.Time {
 	}
 	return v.Time
 }
+
+func TestTimeUnmarshal(t *testing.T) {
+	var empty Time
+	if err := json.Unmarshal([]byte(`""`), &empty); err != nil || !empty.IsZero() {
+		t.Errorf(`Unmarshal(""): time = %v, err = %v; want zero, nil`, empty.Time, err)
+	}
+
+	for _, s := range []string{`"not a date"`, `12345`} {
+		var v Time
+		if err := json.Unmarshal([]byte(s), &v); err == nil {
+			t.Errorf("Unmarshal(%s): expected error", s)
+		}
+	}
+}
+
+func TestTimeMarshalZeroIsNull(t *testing.T) {
+	b, err := json.Marshal(Time{})
+	if err != nil {
+		t.Fatalf("Marshal: %v", err)
+	}
+	if string(b) != "null" {
+		t.Errorf("Marshal(zero) = %s, want null", b)
+	}
+}
+
+func TestTimestampUnmarshalEmptyAndInvalid(t *testing.T) {
+	for _, s := range []string{`null`, `""`} {
+		ts := Timestamp(42)
+		if err := json.Unmarshal([]byte(s), &ts); err != nil || ts != 0 {
+			t.Errorf("Unmarshal(%s): ts = %d, err = %v; want 0, nil", s, ts, err)
+		}
+	}
+
+	var ts Timestamp
+	if err := json.Unmarshal([]byte(`"yesterday"`), &ts); err == nil {
+		t.Error(`Unmarshal("yesterday"): expected error`)
+	}
+}
