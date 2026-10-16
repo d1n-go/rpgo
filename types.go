@@ -125,7 +125,11 @@ type ReturnAddress struct {
 }
 
 // Recipient идентифицирует получателя письма: должно быть задано ровно одно
-// из полей Person или Organization, а также Address либо AddressStruct.
+// из полей Person или Organization, а также Address либо AddressStruct. Для
+// международного отправления (CountryCodeOKSM не 643) нужны оба: адрес
+// строкой в Address и почтовый индекс в AddressStruct.PostalCode, плюс
+// международный ШПИ в CommonInfo.MailID (см. документацию, раздел
+// «Отправка международных отправлений»).
 type Recipient struct {
 	// countryCodeOKSM — код страны получателя по ОКСМ; 643 — Россия. Любое
 	// другое значение делает отправление международным.

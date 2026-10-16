@@ -17,14 +17,25 @@ const (
 	LetterStatusFailed           LetterStatusType = "FAILED"
 )
 
+// LetterSubStatus — поле "subStatus" в ответе о статусе письма. Документация
+// описывает его только для LetterStatusInProgress и оговаривает, что список
+// значений может расширяться — неизвестные значения приходят как есть.
+type LetterSubStatus string
+
+const (
+	LetterSubStatusValidation LetterSubStatus = "VALIDATION"
+	LetterSubStatusDelivery   LetterSubStatus = "DELIVERY"
+)
+
 // LetterStatus — разобранный ответ GET /letters/{requestCode}/status.
 type LetterStatus struct {
 	RequestCode string           `json:"requestCode"`
 	Status      LetterStatusType `json:"type"`
+	SubStatus   LetterSubStatus  `json:"subStatus,omitempty"`
 	Description string           `json:"description,omitempty"`
-	// mailID (ШПИ для заказных писем, UUID для простых) заполняется, как
+	// MailID (ШПИ для заказных писем, UUID для простых) заполняется, как
 	// только Status достигает LetterStatusOnlineDelivered или
-	// letterStatusDeliveredToPrint.
+	// LetterStatusDeliveredToPrint.
 	MailID string `json:"mailId,omitempty"`
 	// AcceptanceTimestamp заполняется одновременно с MailID.
 	AcceptanceTimestamp Timestamp `json:"acceptanceTimestamp,omitempty"`

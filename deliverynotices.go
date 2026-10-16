@@ -29,6 +29,11 @@ const (
 // пункту 61 ПОУПС) по списку ШПИ в заданном формате. Формирование
 // происходит асинхронно; возвращённый id используется в
 // GetDeliveryNoticesStatus и GetDeliveryNoticesContent.
+//
+// Документация ограничивает запрос 1000 ШПИ, а суточный объём — 100 тыс.
+// уведомлений; при превышении возможна автоматическая блокировка сервиса.
+// Клиент эти лимиты не проверяет — дробить списки и следить за суточным
+// объёмом должен вызывающий код.
 func (c *Client) CreateDeliveryNotices(ctx context.Context, noticeType NoticeType, ids []string) (string, error) {
 	data, err := postJSON[struct {
 		ID string `json:"id"`

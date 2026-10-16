@@ -119,3 +119,20 @@ func TestGetLetterStatus(t *testing.T) {
 		t.Errorf("AcceptanceTimestamp = %v", status.AcceptanceTimestamp.Time())
 	}
 }
+
+func TestGetLetterStatusSubStatus(t *testing.T) {
+	c := newTestClient(t, func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(`{"code":200,"data":{"requestCode":"req_1","type":"IN_PROGRESS","subStatus":"VALIDATION"}}`))
+	})
+
+	status, err := c.GetLetterStatus(context.Background(), "req_1")
+	if err != nil {
+		t.Fatalf("GetLetterStatus: %v", err)
+	}
+	if status.Status != LetterStatusInProgress {
+		t.Errorf("Status = %q", status.Status)
+	}
+	if status.SubStatus != LetterSubStatusValidation {
+		t.Errorf("SubStatus = %q", status.SubStatus)
+	}
+}
